@@ -1,0 +1,89 @@
+---
+import type { Effect } from "astro:schema";
+import Pokemon from "./Pokemon.astro";
+
+interface Character {
+  id: number;
+  name: string;
+  image: string;
+  ki: string;
+  maxKi: string;
+  race: string;
+  gender: string;
+  description: string;
+  affiliation: string;
+  deletedAt: string | null;
+}
+
+const response = await fetch(
+  "https://dragonball-api.com/api/characters?limit=100"
+);
+if (!response.ok) {
+  throw new Error(`HTTP error! status: ${response.status}`);
+}
+
+const data = await response.json();
+let characters: Character[] = data.items;
+---
+
+<!-- Buscador
+<div class="max-w-lg mx-auto mt-10">
+  <div class="flex items-center">
+    <input
+      type="text"
+      placeholder="Buscar Pokémon..."
+      class="w-full px-4 py-2 border rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+    <button
+      onclick="window.location.href='./PokemonFiltrado'"
+      class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 19l-6-6m2-2a7 7 0 1110 0 7 7 0 01-10 0z"></path>
+      </svg>
+    </button>
+  </div>
+</div> -->
+<div class="flex justify-center items-center min-h-screen">
+  <div
+    id="pokemonList"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
+  >
+    {
+      characters.map((item: Character) => (
+        <div class="pokemon-card text-center p-4" key={item.id}>
+          <Pokemon
+            name={item.name}
+            image={item.image}
+            id={item.id}
+            ki={item.ki}
+            maxKi={item.maxKi}
+            race={item.race}
+            gender={item.gender}
+            affiliation={item.affiliation}
+            description={item.description}
+          />
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  img {
+    height: 400px;
+  }
+  .pokemon-card {
+    height: 100%;
+  }
+</style>
