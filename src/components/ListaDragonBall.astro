@@ -1,6 +1,5 @@
 ---
-import type { Effect } from "astro:schema";
-import Pokemon from "./Pokemon.astro";
+import DragonBall from "./DragonBall.astro";
 
 interface Character {
   id: number;
@@ -26,34 +25,6 @@ const data = await response.json();
 let characters: Character[] = data.items;
 ---
 
-<!-- Buscador
-<div class="max-w-lg mx-auto mt-10">
-  <div class="flex items-center">
-    <input
-      type="text"
-      placeholder="Buscar Pokémon..."
-      class="w-full px-4 py-2 border rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-    <button
-      onclick="window.location.href='./PokemonFiltrado'"
-      class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M15 19l-6-6m2-2a7 7 0 1110 0 7 7 0 01-10 0z"></path>
-      </svg>
-    </button>
-  </div>
-</div> -->
 <div class="flex justify-center items-center min-h-screen">
   <div
     id="pokemonList"
@@ -62,7 +33,7 @@ let characters: Character[] = data.items;
     {
       characters.map((item: Character) => (
         <div class="pokemon-card text-center p-4" key={item.id}>
-          <Pokemon
+          <DragonBall
             name={item.name}
             image={item.image}
             id={item.id}
